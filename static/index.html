@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clipYT - AI Viral YouTube Short Video Clipper</title>
+  <meta name="description" content="Turn long YouTube videos into viral short-form clips for TikTok, Shorts, and Reels with smart framing and dynamic subtitles.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container nav-container">
+      <a href="/" class="brand">
+        <div class="brand-icon">✂️</div>
+        <div>
+          <span class="brand-name">clip<span class="brand-yt">YT</span></span>
+          <span class="brand-badge">AI 2.0</span>
+        </div>
+      </a>
+      
+      <div class="system-status">
+        <div class="status-indicator">
+          <span class="status-dot" id="gemini-status-dot"></span>
+          <span id="gemini-status-text">Gemini AI</span>
+        </div>
+        <div class="status-indicator">
+          <span class="status-dot" id="canary-status-dot"></span>
+          <span id="canary-status-text">Canary ASR</span>
+        </div>
+        <div class="status-indicator">
+          <span class="status-dot" id="ffmpeg-status-dot"></span>
+          <span id="ffmpeg-status-text">FFmpeg</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero container">
+    <div class="hero-pill">✨ Powered by Gemini AI, NVIDIA Canary-1B Speech AI & Smart FFmpeg Engine</div>
+    <h1>Turn Long Videos Into<br><span>Viral Short-Form Clips</span></h1>
+    <p>Automatically extract high-impact moments, apply smart vertical framing without cutting off content, and burn punchy, synchronized subtitles.</p>
+  </section>
+
+  <!-- Main App Card -->
+  <main class="container">
+    <div class="app-card glass" id="creator-card">
+      
+      <!-- URL Input -->
+      <div class="input-group">
+        <label for="video-url-input" class="input-label">YouTube Video URL</label>
+        <div class="url-input-wrapper">
+          <input 
+            type="url" 
+            id="video-url-input" 
+            class="url-input" 
+            placeholder="Paste YouTube link (e.g. https://www.youtube.com/watch?v=... or https://youtu.be/...)"
+            autocomplete="off"
+          />
+          <button type="button" class="btn-paste" id="btn-paste-url">
+            📋 Paste
+          </button>
+        </div>
+
+        <!-- Video Metadata Preview -->
+        <div class="video-preview" id="video-preview-box">
+          <img src="" alt="Thumbnail" class="preview-thumb" id="preview-thumbnail">
+          <div class="preview-meta">
+            <h4 id="preview-title">Video Title</h4>
+            <p><span id="preview-author">Author</span> • <span id="preview-duration">0:00</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Grid -->
+      <div class="settings-grid">
+        
+        <!-- Framing & Aspect Ratio -->
+        <div class="setting-card">
+          <div class="setting-header">
+            <div class="setting-title">📐 Framing & Aspect Ratio</div>
+          </div>
+          <div class="card-options" id="framing-options">
+            <div class="card-opt active" data-aspect="portrait" data-framing="fit_blur">
+              <span style="font-size: 20px;">🖼️</span>
+              <div class="card-opt-content">
+                <h5>Blurred Backdrop <span class="tag-badge best">Recommended</span></h5>
+                <p>9:16 vertical with 100% video visible centered + blurred aesthetic background. Never cuts off slides or people.</p>
+              </div>
+            </div>
+
+            <div class="card-opt" data-aspect="portrait" data-framing="fill_crop">
+              <span style="font-size: 20px;">✂️</span>
+              <div class="card-opt-content">
+                <h5>Full Screen Fill</h5>
+                <p>9:16 vertical crop filled edge-to-edge. Best for centered single-speaker talking heads.</p>
+              </div>
+            </div>
+
+            <div class="card-opt" data-aspect="landscape" data-framing="landscape">
+              <span style="font-size: 20px;">📺</span>
+              <div class="card-opt-content">
+                <h5>Landscape 16:9</h5>
+                <p>Native widescreen clips for standard YouTube or Twitter/X.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subtitle Styling -->
+        <div class="setting-card">
+          <div class="setting-header">
+            <div class="setting-title">💬 Subtitle Styling</div>
+          </div>
+          <div class="card-options" id="subtitle-options">
+            <div class="card-opt active" data-style="viral_yellow">
+              <span style="font-size: 20px;">⚡</span>
+              <div class="card-opt-content">
+                <h5>Viral TikTok Yellow <span class="tag-badge best">Top Retention</span></h5>
+                <p>Punchy 3-5 word bursts with vibrant yellow font, black outline, safe margins, and top hook badge.</p>
+              </div>
+            </div>
+
+            <div class="card-opt" data-style="clean_white">
+              <span style="font-size: 20px;">⚪</span>
+              <div class="card-opt-content">
+                <h5>Clean White Minimal</h5>
+                <p>Crisp white text with subtle shadow, centered in lower third safe zone.</p>
+              </div>
+            </div>
+
+            <div class="card-opt" data-style="none">
+              <span style="font-size: 20px;">🚫</span>
+              <div class="card-opt-content">
+                <h5>No Subtitles</h5>
+                <p>Clean video render without burnt captions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Number of Clips & Duration -->
+        <div class="setting-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="setting-header">
+              <div class="setting-title">🔢 Clip Count</div>
+            </div>
+            <div class="pill-group" id="clip-count-group" style="margin-bottom: 24px;">
+              <div class="pill-option" data-count="1">1</div>
+              <div class="pill-option" data-count="2">2</div>
+              <div class="pill-option active" data-count="3">3</div>
+              <div class="pill-option" data-count="4">4</div>
+              <div class="pill-option" data-count="5">5</div>
+            </div>
+
+            <div class="setting-header">
+              <div class="setting-title">⏱️ Maximum Clip Duration</div>
+            </div>
+            <div class="pill-group" id="max-duration-group">
+              <div class="pill-option" data-duration="30">30s</div>
+              <div class="pill-option active" data-duration="45">45s</div>
+              <div class="pill-option" data-duration="60">60s</div>
+              <div class="pill-option" data-duration="90">90s</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px; font-size: 12px; color: var(--text-dim); text-align: center;">
+            🎯 Gemini AI evaluates retention, hook strength, and punchlines.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Button -->
+      <div class="cta-wrapper">
+        <button type="button" class="btn-generate" id="btn-generate-clips">
+          <span>🚀 Generate Viral Clips</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Live Processing Card -->
+    <div class="processing-card glass" id="processing-card">
+      <div class="progress-header">
+        <h3 id="progress-title">Creating Your Viral Clips...</h3>
+        <p style="color: var(--text-muted);" id="progress-subtitle">Downloading media and generating AI-powered vertical clips</p>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar-fill"></div>
+      </div>
+
+      <div class="step-tracker">
+        <div class="step-item active" id="step-1">
+          <div class="step-icon">1</div>
+          <div class="step-label">Download & Subs / ASR</div>
+        </div>
+        <div class="step-item" id="step-2">
+          <div class="step-icon">2</div>
+          <div class="step-label">Gemini AI Detection</div>
+        </div>
+        <div class="step-item" id="step-3">
+          <div class="step-icon">3</div>
+          <div class="step-label">Framing & Subtitles</div>
+        </div>
+        <div class="step-item" id="step-4">
+          <div class="step-icon">4</div>
+          <div class="step-label">Final MP4 Render</div>
+        </div>
+      </div>
+
+      <div class="status-log">
+        <span class="status-dot"></span>
+        <span id="status-ticker-text">Initializing pipeline...</span>
+      </div>
+    </div>
+
+    <!-- Results Showcase -->
+    <section class="results-section" id="results-section">
+      <div class="results-header">
+        <div>
+          <h2>🔥 Generated Viral Clips</h2>
+          <p style="color: var(--text-muted);" id="results-subheading">Rendered with smart framing and dynamic captions.</p>
+        </div>
+        <button type="button" class="btn-action" id="btn-new-clips" style="max-width: 180px;">
+          ➕ Create More Clips
+        </button>
+      </div>
+
+      <div class="clips-grid" id="clips-grid-container">
+        <!-- Rendered clips injected here -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Container -->
+  <div class="toast" id="toast-notification">Notification</div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

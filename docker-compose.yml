@@ -1,0 +1,13 @@
+services:
+  cliptrip:
+    build: .
+    container_name: cliptrip-app
+    ports:
+      - "8787:8787"
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GEMINI_MODEL: gemini-3.8-flash
+      OUTPUT_DIR: /app/output
+    volumes:
+      - ./output:/app/output
+    restart: unless-stopped
